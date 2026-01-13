@@ -1,0 +1,13 @@
+{
+  "testCaseId": "A014-BOOKADD_010",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Book",
+  "scenario": "Empty Score",
+  "description": "Score empty",
+  "functionName": "addBookEmptyScore",
+  "caseFolderName": "case-010-bookadd-empty-score",
+  "precondition": "Admin logged in",
+  "expectedMessage": "この欄は空にできません"
+}

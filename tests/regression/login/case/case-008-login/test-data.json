@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_008",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "Email Missing Domain",
+  "description": "Email without domain part",
+  "functionName": "loginMissingDomain",
+  "caseFolderName": "case-008-login",
+  "email": "abc@",
+  "password": "000000",
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

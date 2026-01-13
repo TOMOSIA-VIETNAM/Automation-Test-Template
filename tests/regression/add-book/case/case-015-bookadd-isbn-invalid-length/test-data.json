@@ -1,0 +1,14 @@
+{
+  "testCaseId": "A014-BOOKADD_015",
+  "testType": "Regression",
+  "priority": "Medium",
+  "category": "Negative",
+  "feature": "Book",
+  "scenario": "ISBN Invalid Length",
+  "description": "ISBN 9 digits",
+  "functionName": "addBookISBNInvalid",
+  "caseFolderName": "case-015-bookadd-isbn-invalid-length",
+  "precondition": "Admin logged in",
+  "isbn": "123456789",
+  "expectedMessage": "不正なISBN"
+}

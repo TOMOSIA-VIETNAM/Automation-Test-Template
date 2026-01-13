@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_016",
+  "testType": "Security",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "XSS Injection",
+  "description": "XSS Injection attack on login form",
+  "functionName": "loginXSSInjection",
+  "caseFolderName": "case-016-login",
+  "email": "<script>alert(1)</script>",
+  "password": "000000",
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

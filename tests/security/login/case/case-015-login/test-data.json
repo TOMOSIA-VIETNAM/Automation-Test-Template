@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_015",
+  "testType": "Security",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "SQL Injection",
+  "description": "SQL Injection attack on login form",
+  "functionName": "loginSQLInjection",
+  "caseFolderName": "case-015-login",
+  "email": "' OR '1'='1",
+  "password": "000000",
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

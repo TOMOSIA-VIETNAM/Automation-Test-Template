@@ -1,0 +1,200 @@
+---
+alwaysApply: true
+---
+
+---
+name: playwright-test-structure
+priority: 1
+description: >
+  Enforce a clean, professional, and fully project-aware Playwright test structure.
+  All generated tests must follow the required format, include TestCaseID as a tag,
+  automatically analyze the existing project structure before generation,
+  and run "npm run lint" after generating code to ensure code quality.
+patterns:
+  - "*.spec.ts"
+  - "*.spec.js"
+  - "*.test.ts"
+  - "*.test.js"
+---
+
+# RULE: PLAYWRIGHT TEST STRUCTURE + PROJECT CONTEXT + AUTO LINTING
+
+################################################################################
+# 1. PROJECT STRUCTURE AWARENESS
+################################################################################
+
+Before generating any test, Cursor must ALWAYS analyze and understand the existing project:
+
+- tests/e2e/**
+- fixtures/**
+- helpers/**
+- utils/**
+- config/**
+- constants/**
+- page object models (src/pages/**)
+- any test-data JSON files
+
+Cursor must:
+- Import the correct existing helpers/fixtures
+- Use correct project paths
+- Use correct POM classes if they exist
+- Use correct tag helper functions (e.g., getLoginTags, LOGIN_TAGS, etc.)
+- Never create new helpers if the project already provides them
+
+################################################################################
+# 2. AUTO LINTING AFTER GENERATION
+################################################################################
+
+After generating a test file, Cursor MUST automatically:
+
+1. Run: npm run lint  
+2. Fix all linting errors  
+3. Re-run lint until it passes with **zero errors**
+
+This ensures formatting, imports, structure, and code quality are consistent with the project.
+
+################################################################################
+# 3. REQUIRED TEST TEMPLATE
+################################################################################
+
+All tests MUST follow this structure:
+
+test(
+  'should <expected behavior> when <condition>',
+  {
+    tag: [..., '@${TestCaseID}'],
+  },
+  async ({ page }) => {
+
+    // Given
+    <initial setup>
+
+    // When
+    <user actions>
+
+    // Then
+    <assertions>
+  }
+);
+
+### Tag Requirements:
+- `@${TestCaseID}` is **mandatory** if using Excel result writer
+- It MUST appear inside the `tag` array only
+- It MUST NOT appear in the test name
+- Cursor must automatically inject TestCaseID from Excel parsing logic
+- Example: `tag: ['@login', '@smoke', '@TC_001']`
+- The TestCaseID tag is used by Excel result writer to map test results to Excel template
+
+################################################################################
+# 4. JSON IMPORT RULES (STRICT)
+################################################################################
+
+Direct JSON import is strictly **forbidden** in ESM modules.
+
+NOT ALLOWED:
+import testData from './test-data.json';
+
+REQUIRED FORMAT:
+import { readFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const testData = JSON.parse(readFileSync(join(__dirname, 'test-data.json'), 'utf-8'));
+
+For CommonJS:
+const testData = JSON.parse(fs.readFileSync(path.join(__dirname, 'test-data.json'), 'utf-8'));
+
+################################################################################
+# 5. ASSERTION RULES
+################################################################################
+
+Every test MUST contain at least **one valid assertion**.
+
+Allowed patterns:
+- await expect(page).toHaveURL(/.../);
+- await expect(locator).toBeVisible();
+- await expect(locator).toHaveText('...');
+- await expect(locator).toContainText('...');
+
+################################################################################
+# 6. TEST NAMING RULES
+################################################################################
+
+- Format MUST be:  
+  **"should <expected behavior> when <condition>"**
+- No TestCaseID in the test name
+- No emojis, icons, or decorative text
+- No prefixes like TC_001
+
+################################################################################
+# 7. CLEAN CODE & STRUCTURE RULES
+################################################################################
+
+Cursor must always:
+- Use async/await for all steps
+- Use page.locator() instead of page.$()
+- Avoid duplication → use helpers/fixtures
+- Keep test files ~40 lines maximum
+- Strictly follow Given / When / Then
+- Keep imports clean and correct
+- No unstructured or hard-to-read tests
+
+################################################################################
+# 8. EXCEL RESULT INTEGRATION
+################################################################################
+
+When generating tests that need Excel reporting:
+
+```ts
+import { excelResultWriter } from '@utils/excel-result-writer';
+
+test.afterEach(async ({}, testInfo) => {
+  // Write test result to Excel
+  await excelResultWriter.writeResult(testInfo);
+});
+```
+
+Required for Excel integration:
+- Test MUST include TestCaseID tag (e.g., `@TC_001`)
+- Excel template path: `excel/testcase-template.xlsm`
+- Results written to appropriate Round (1 or 2) based on existing data
+- Excel writer automatically:
+  - Extracts TestCaseID from tags
+  - Writes result (P/F) to Excel
+  - Adds date, tester name, and report link
+  - Tracks test runs across multiple projects
+  - Handles Round 1 and Round 2 data writing
+
+################################################################################
+# 9. BANNED ANTI-PATTERNS
+################################################################################
+
+Cursor MUST NOT generate any of the following:
+
+- Direct JSON import  
+- Missing assertions  
+- TestCaseID inside test name  
+- waitForTimeout  
+- Long or unstructured tests  
+- Wrong import paths  
+- Missing Given/When/Then  
+- Repeated logic inside tests  
+- Missing tag array or missing TestCaseID
+
+################################################################################
+# 10. ENFORCEMENT
+################################################################################
+
+Cursor MUST ALWAYS:
+
+- Read and understand the project structure before generating tests  
+- Use existing helpers, fixtures, constants, POM, and utilities  
+- Inject TestCaseID into the tag array  
+- Keep test names clean and compliant  
+- Follow the Playwright template strictly  
+- Run "npm run lint" after generation  
+- Fix all lint issues until the code is fully compliant  
+- Produce clean, readable, maintainable, and executable Playwright tests  
+

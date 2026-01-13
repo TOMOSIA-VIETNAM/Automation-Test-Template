@@ -1,0 +1,61 @@
+---
+alwaysApply: true
+---
+
+---
+name: playwright-scenario-template
+priority: 1
+description: >
+  Enforce a standardized Scenario Template and test structure when generating Playwright automation tests.
+patterns:
+  - "*.spec.ts"
+  - "*.spec.js"
+  - "*.test.ts"
+  - "*.test.js"
+---
+
+# RULE: PLAYWRIGHT SCENARIO TEMPLATE
+
+When generating test scenarios, always follow the standardized Gherkin-style structure below.
+
+## Scenario Template (Gherkin Style)
+
+Scenario: <Clear and descriptive scenario title>
+
+Given:
+  - <Initial conditions / system state / URL>
+
+When:
+  - <User actions>
+
+Then:
+  - <Expected results / assertions>
+
+And:
+  - <Additional expectations if needed>
+
+---
+
+## Playwright Test Structure Template
+
+test('<Scenario name>', async ({ page }) => {
+  // Given
+  <steps>
+
+  // When
+  <steps>
+
+  // Then
+  <assertions>
+});
+
+---
+
+## Additional Rules
+
+- Each scenario must test ONE clearly defined behavior.
+- Expected results must be explicit and measurable, not ambiguous.
+- Always include Given / When / Then comments inside Playwright tests.
+- Do not mix multiple flows inside a single test.
+- Prefer Page Object Model (POM) when steps are reused across scenarios.
+- Use meaningful test names that describe the behavior, not the implementation.

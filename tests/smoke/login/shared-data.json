@@ -1,0 +1,23 @@
+{
+  "feature": "Login",
+  "featureCode": "A001-LOGIN",
+  "description": "Login functionality smoke test cases",
+  "baseUrl": "/login",
+  "commonMessages": {
+    "loginSuccess": "ログインに成功しました",
+    "loginFailed": "ログインに失敗しました"
+  },
+  "commonSelectors": {
+    "emailField": "#email",
+    "passwordField": "#password",
+    "loginButton": "button[type='submit']",
+    "successDialog": ".success-dialog",
+    "errorDialog": ".error-dialog"
+  },
+  "testAccounts": {
+    "admin": {
+      "email": "admin@libman.com",
+      "role": "Administrator"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "feature": "Login",
+  "featureCode": "A001-LOGIN",
+  "description": "Login security test cases",
+  "baseUrl": "/login",
+  "commonMessages": {
+    "authError": "メールアドレスまたはパスワードが間違っています"
+  },
+  "messagesCodes": {
+    "message_28": "メールアドレスまたはパスワードが間違っています"
+  },
+  "securityPayloads": {
+    "sqlInjection": "' OR '1'='1",
+    "xssScript": "<script>alert(1)</script>"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_024",
+  "testType": "Performance",
+  "priority": "High",
+  "category": "Concurrent",
+  "feature": "Login",
+  "scenario": "50 Users",
+  "description": "Concurrent login with 50 valid accounts",
+  "functionName": "loginMultiUser",
+  "caseFolderName": "case-024-login",
+  "precondition": "50 users exist",
+  "usersCount": 50,
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

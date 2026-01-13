@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_001",
+  "testType": "Smoke",
+  "priority": "High",
+  "category": "Positive",
+  "feature": "Login",
+  "scenario": "Valid Login",
+  "description": "User exists",
+  "functionName": "loginValid",
+  "caseFolderName": "case-001-login",
+  "email": "admin@libman.com",
+  "password": "000000",
+  "expectedMessage": "ログインに成功しました",
+  "messageCode": "message_54"
+}

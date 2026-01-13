@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_013",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "Wrong Email",
+  "description": "Authentication with non-existing email",
+  "functionName": "loginWrongEmail",
+  "caseFolderName": "case-013-login",
+  "email": "notexist@libman.com",
+  "password": "000000",
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

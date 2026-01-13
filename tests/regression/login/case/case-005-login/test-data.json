@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_005",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "Missing Both Fields",
+  "description": "Both Email and Password Empty",
+  "functionName": "loginEmptyBoth",
+  "caseFolderName": "case-005-login",
+  "email": "",
+  "password": "",
+  "expectedMessage": "メールアドレスを入力してください",
+  "messageCode": "message_52"
+}

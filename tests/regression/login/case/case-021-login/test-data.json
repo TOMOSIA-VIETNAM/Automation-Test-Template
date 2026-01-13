@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_021",
+  "testType": "Regression",
+  "priority": "Low",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "Password Too Short",
+  "description": "Login with password that is too short",
+  "functionName": "loginPWShort",
+  "caseFolderName": "case-021-login",
+  "email": "admin02@libman.com",
+  "password": "000",
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

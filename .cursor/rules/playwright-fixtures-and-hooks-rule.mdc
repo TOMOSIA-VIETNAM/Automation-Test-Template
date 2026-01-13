@@ -1,0 +1,144 @@
+---
+alwaysApply: true
+---
+
+# MDC Rule — Fixture & Hooks Rule (for Playwright)
+
+```mdc
+---
+name: playwright-fixtures-and-hooks-rule
+priority: 1
+description: >
+  Enforces consistent usage of fixtures, hooks, and test setup/teardown patterns in Playwright automation tests.
+patterns:
+  - "*.spec.ts"
+  - "*.spec.js"
+  - "*.test.ts"
+  - "*.test.js"
+---
+
+# RULE: FIXTURES & HOOKS USAGE IN PLAYWRIGHT
+
+All Playwright E2E tests must follow consistent fixture design and hook usage.  
+This ensures clean setup/teardown, reduces duplicated logic, and improves maintainability.
+
+---
+
+## 1. General Rules
+
+- Always use Playwright’s built-in test fixtures (`{ page, context, browser }`) unless extended fixtures are necessary.
+- Avoid performing test setup directly inside the test unless it is test-specific.
+- Shared setup must go into hooks (`beforeEach`, `beforeAll`) or custom fixtures.
+- Shared teardown must use `afterEach` or `afterAll`.
+- Keep hooks minimal and predictable—do not add unnecessary logic.
+
+---
+
+## 2. Hooks Usage Standard
+
+### beforeAll
+Use for:
+- Global setup shared by all tests in the test file.
+- Creating global test data.
+- Initializing API clients or reusable services.
+
+Do NOT:
+- Navigate to URLs.
+- Perform UI actions.
+- Store UI state.
+
+### beforeEach
+Use for:
+- Opening the base URL.
+- Logging in (if login is required for all tests).
+- Preparing test-specific state.
+- Setting cookies, localStorage, or test mocks.
+
+### afterEach
+Use for:
+- Cleaning test data created during each test.
+- Resetting cookies/localStorage if needed.
+- Closing connections if they were opened in the test.
+
+### afterAll
+Use for:
+- Global teardown.
+- Closing DB/API connections created in beforeAll.
+- Cleaning up artifacts.
+
+---
+
+## 3. Custom Fixture Rules
+
+- Custom fixtures must be defined inside `fixtures.ts` or `test-base.ts`.
+- Each custom fixture must:
+  - have a clear name,
+  - return a reusable test helper or service,
+  - not perform UI actions directly,
+  - never embed assertions.
+
+### Example required fixture structure:
+
+```ts
+export const test = base.extend({
+  authUser: async ({ page }, use) => {
+    await page.goto('/login');
+    await page.fill('#user', 'admin');
+    await page.fill('#pass', 'admin123');
+    await page.click('button[type=submit]');
+    await use(page);
+  },
+});
+```
+
+Rules for custom fixtures:
+- Name fixtures using camelCase.
+- Each fixture must do ONE job only.
+- Never mix UI navigation and API setup in the same fixture.
+
+---
+
+## 4. Test Structure with Fixtures
+
+Each test must follow:
+
+```ts
+test.describe('Feature Name', () => {
+  test.beforeEach(async ({ page }) => {
+    // Setup shared for all tests
+  });
+
+  test('Scenario Name', async ({ page, <customFixtures> }) => {
+    // Test steps
+  });
+
+  test.afterEach(async ({ page }) => {
+    // Cleanup
+  });
+});
+```
+
+Rules:
+- Do not perform UI setup in beforeAll.
+- Only use custom fixtures when necessary to reduce repeated logic.
+
+---
+
+## 5. Anti-Patterns (Forbidden)
+
+- Login inside every test manually (use fixture or beforeEach).
+- Opening the same URL repeatedly in multiple tests.
+- Creating global variables outside fixtures.
+- Using a fixture to perform assertions.
+- Storing dynamic state inside beforeAll.
+- Adding heavy logic inside hooks.
+
+---
+
+## 6. Best Practices
+
+- Use fixtures for login, API helpers, or environment state.
+- Use hooks for test preparation, not business logic.
+- Keep test files short; move logic into POM + fixtures.
+- Prefer extending base fixtures instead of reinventing structure.
+```

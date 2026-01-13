@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_022",
+  "testType": "Regression",
+  "priority": "Low",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "Password Too Long",
+  "description": "Login with password that is too long (200 characters)",
+  "functionName": "loginPWLong",
+  "caseFolderName": "case-022-login",
+  "email": "admin02@libman.com",
+  "password": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

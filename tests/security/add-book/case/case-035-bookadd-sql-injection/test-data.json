@@ -1,0 +1,14 @@
+{
+  "testCaseId": "A014-BOOKADD_035",
+  "testType": "Security",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Book",
+  "scenario": "SQL Injection",
+  "description": "SQL payload",
+  "functionName": "addBookSQLi",
+  "caseFolderName": "case-035-bookadd-sql-injection",
+  "precondition": "Admin logged in",
+  "sqlPayload": "'; DROP TABLE books; --",
+  "expectedResult": "SQL injection is prevented, no data corruption"
+}

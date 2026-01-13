@@ -1,0 +1,14 @@
+{
+  "testCaseId": "A014-BOOKADD_016",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Book",
+  "scenario": "Duplicate ISBN",
+  "description": "Existing ISBN",
+  "functionName": "addBookDuplicateISBN",
+  "caseFolderName": "case-016-bookadd-duplicate-isbn",
+  "precondition": "Existing ISBN",
+  "isbn": "9784567890123",
+  "expectedMessage": "不正なISBN"
+}

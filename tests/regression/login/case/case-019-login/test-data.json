@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_019",
+  "testType": "UI/Usability",
+  "priority": "Medium",
+  "category": "Usability",
+  "feature": "Login",
+  "scenario": "Trim Input",
+  "description": "Login with email containing leading/trailing spaces",
+  "functionName": "loginTrimSpaces",
+  "caseFolderName": "case-019-login",
+  "email": " admin02@libman.com ",
+  "password": "000000",
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

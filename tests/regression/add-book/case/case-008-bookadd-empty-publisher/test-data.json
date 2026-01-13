@@ -1,0 +1,13 @@
+{
+  "testCaseId": "A014-BOOKADD_008",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Book",
+  "scenario": "Empty Publisher",
+  "description": "Publisher empty",
+  "functionName": "addBookEmptyPublisher",
+  "caseFolderName": "case-008-bookadd-empty-publisher",
+  "precondition": "Admin logged in",
+  "expectedMessage": "出版社名を入力してください"
+}

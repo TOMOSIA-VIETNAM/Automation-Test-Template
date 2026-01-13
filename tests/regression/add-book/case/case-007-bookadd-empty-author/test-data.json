@@ -1,0 +1,13 @@
+{
+  "testCaseId": "A014-BOOKADD_007",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Book",
+  "scenario": "Empty Author",
+  "description": "Author empty",
+  "functionName": "addBookEmptyAuthor",
+  "caseFolderName": "case-007-bookadd-empty-author",
+  "precondition": "Admin logged in",
+  "expectedMessage": "著者名を入力してください"
+}

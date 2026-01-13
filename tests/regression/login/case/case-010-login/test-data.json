@@ -1,0 +1,17 @@
+{
+  "testCaseId": "A001-LOGIN_010",
+  "testType": "Regression",
+  "priority": "Medium",
+  "category": "Boundary Positive",
+  "feature": "Login",
+  "scenario": "Email Max Length",
+  "description": "Email with maximum allowed length (253 chars)",
+  "precondition": "Account exists",
+  "functionName": "loginEmailMaxLength",
+  "caseFolderName": "case-010-login",
+  "email": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@libman.com",
+  "password": "000000",
+  "expectedMessage": "ログインに成功しました",
+  "messageCode": "message_54",
+  "note": "This test requires a pre-created account with 253 character email"
+}

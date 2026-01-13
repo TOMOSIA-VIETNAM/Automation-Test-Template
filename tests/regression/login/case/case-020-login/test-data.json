@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_020",
+  "testType": "Regression",
+  "priority": "Low",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "Password With Spaces",
+  "description": "Login with password containing spaces",
+  "functionName": "loginPWContainSpace",
+  "caseFolderName": "case-020-login",
+  "email": "admin02@libman.com",
+  "password": "000 000",
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

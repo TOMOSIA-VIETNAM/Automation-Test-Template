@@ -1,0 +1,13 @@
+{
+  "testCaseId": "A014-BOOKADD_009",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Book",
+  "scenario": "Empty Publish Date",
+  "description": "Publish Date empty",
+  "functionName": "addBookEmptyDate",
+  "caseFolderName": "case-009-bookadd-empty-publish-date",
+  "precondition": "Admin logged in",
+  "expectedMessage": "日付を選択してください"
+}

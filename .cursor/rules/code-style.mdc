@@ -1,0 +1,282 @@
+---
+alwaysApply: true
+---
+
+# MDC Rule — Code Style Rule for Automation Test Framework
+
+````mdc
+---
+name: code-style-rule
+priority: 1
+description: >
+  Enforce consistent coding standards, formatting, patterns, and best practices
+  for Playwright automation tests, Page Object Models, utilities, and configs.
+patterns:
+  - "**/*.js"
+  - "**/*.ts"
+  - "**/*.mjs"
+  - "**/*.json"
+  - "tests/**"
+---
+
+# RULE: CODE STYLE FOR PLAYWRIGHT AUTOMATION PROJECT
+
+All generated code must follow the rules below to maintain consistent structure, readability, scalability, and maintainability across the entire automation framework.
+
+---
+
+## 1. General Style Rules
+
+### The following must always be enforced:
+
+- Use **ESM imports** (`import ... from`) instead of CommonJS (`require`).
+- Use **const** for values that never change; otherwise use **let**.
+- Never use **var**.
+- Always include a blank line between logical code blocks.
+- Use **arrow functions** for callbacks.
+- Follow Playwright's recommended async/await patterns.
+- Avoid deeply nested logic (no more than 3 layers).
+- Use descriptive variable names (never use `a`, `b`, `x1`).
+
+---
+
+## 2. Formatting Rules
+
+Cursor must follow standard formatting:
+
+- Indentation: **2 spaces**
+- Line length: **max 100 chars**
+- Use **single quotes** `'text'`
+- Use **semicolon always**
+- Add trailing commas in objects and arrays
+- Add a newline at EOF
+
+Whenever Cursor generates `.eslintrc`, `.prettierrc`, or config files, they must match the style above.
+
+---
+
+## 3. Test File Style Rules (.spec.ts / .spec.js)
+
+All test files **must follow this format**:
+
+```js
+import { test, expect } from '@playwright/test';
+
+test.describe('Feature Name', () => {
+  test('Scenario name', async ({ page }) => {
+
+    // Arrange (Given)
+    ...
+
+    // Act (When)
+    ...
+
+    // Assert (Then)
+    ...
+
+  });
+});
+````
+
+Required conventions:
+
+* Use `test.describe()` to group related tests
+* Each test must contain structured sections:
+
+  * `// Arrange`
+  * `// Act`
+  * `// Assert`
+* Never mix multiple scenarios in one test file
+* Tests must be deterministic (no random waits, no `setTimeout`)
+
+---
+
+## 4. Page Object Model (POM) Style Rules
+
+Every generated Page Object must follow:
+
+```js
+export class LoginPage {
+  constructor(page) {
+    this.page = page;
+    this.usernameInput = page.locator('#username');
+    this.passwordInput = page.locator('#password');
+    this.loginButton = page.locator('#login');
+  }
+
+  async goto() {
+    await this.page.goto('/login');
+  }
+
+  async login(username, password) {
+    await this.usernameInput.fill(username);
+    await this.passwordInput.fill(password);
+    await this.loginButton.click();
+  }
+}
+```
+
+Rules:
+
+* Class name must be in **PascalCase**
+* Methods must be in **camelCase**
+* Selectors must be declared in constructor
+* Methods must wrap a meaningful user action
+* No business logic inside test files — only inside POM
+
+---
+
+## 🟫 5. Naming Conventions
+
+Cursor must enforce:
+
+* Variables → **camelCase**
+* Constants → **UPPER_SNAKE_CASE**
+* Classes → **PascalCase**
+* Test names → **sentence case** `"Should login successfully"`
+* Filenames:
+
+  * POM files → `login-page.js`
+  * Test files → `login.spec.js`
+  * Utilities → `string-utils.js`
+
+This must be applied automatically unless user specifies otherwise.
+
+---
+
+## 6. Commenting Rules
+
+Code must include:
+
+* Minimal but meaningful comments
+* No commented-out dead code
+* No redundant comments
+
+Acceptable comment examples:
+
+```js
+// Navigate to login page
+await page.goto('/login');
+```
+
+Unacceptable:
+
+```js
+// click
+await page.click('#btn');
+```
+
+---
+
+## 7. Error Handling & Stability
+
+Generated code must:
+
+* NEVER use `try/catch` inside test (Playwright handles this)
+* NEVER include arbitrary waits like `waitForTimeout(3000)`
+* ALWAYS use:
+
+  * `await element.waitFor()`
+  * `await expect(locator).toBeVisible()`
+  * Conditions instead of static delays
+
+---
+
+## 🟫 8. Import Style
+
+Imports must:
+
+* Be grouped logically:
+
+  1. Playwright imports
+  2. POM classes
+  3. Utilities
+  4. Config or constants
+* Be sorted alphabetically within groups
+
+Example:
+
+```js
+import { test, expect } from '@playwright/test';
+import { LoginPage } from '../../core/pages/login-page';
+import { USERS } from '../../data/users.json';
+```
+
+---
+
+## 9. File Structure Rules
+
+Every test file must follow:
+
+```
+1. Imports
+2. Test.describe block
+3. Test cases
+4. Hooks (beforeEach / afterEach) at bottom
+```
+
+Every POM file must follow:
+
+```
+1. Imports
+2. Class definition
+3. Constructor
+4. Locators
+5. Methods
+6. Exports
+```
+
+---
+
+## 10. Prohibited Practices
+
+Cursor must NOT generate:
+
+* `page.waitForTimeout()`
+* `setTimeout()`
+* Hardcoded sleeps
+* Tests without POM (unless user says otherwise)
+* Inline selectors inside test scripts
+* Magic numbers (undefined timeouts)
+* Nested describe blocks more than 2 levels
+
+---
+
+## 11. Automatic ESLint + Prettier Compatibility
+
+Cursor must generate configs aligned with:
+
+* Airbnb Style Guide (recommended)
+* TypeScript ESLint rules (if TS)
+* Prettier for formatting
+
+Example generated `.prettierrc`:
+
+```json
+{
+  "singleQuote": true,
+  "semi": true,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "trailingComma": "all"
+}
+```
+
+---
+
+## ENFORCEMENT
+
+For ANY generated code related to:
+
+* Playwright tests
+* POM classes
+* Utilities
+* Fixtures
+* Config files
+
+Cursor **must automatically follow this Code Style Rule** unless the user explicitly overrides it.
+
+```
+If user says: “generate login test”
+→ Cursor MUST generate test using proper style above.
+```

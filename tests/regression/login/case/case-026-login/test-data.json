@@ -1,0 +1,13 @@
+{
+  "testCaseId": "A001-LOGIN_026",
+  "testType": "Regression",
+  "priority": "Low",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "Remember Me",
+  "description": "Test Remember Me functionality",
+  "functionName": "loginRememberMe",
+  "caseFolderName": "case-026-login",
+  "status": "SKIPPED",
+  "skipReason": "Feature not implemented"
+}

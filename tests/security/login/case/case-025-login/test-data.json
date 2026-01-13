@@ -1,0 +1,17 @@
+{
+  "testCaseId": "A001-LOGIN_025",
+  "testType": "Security",
+  "priority": "High",
+  "category": "Security",
+  "feature": "Login",
+  "scenario": "Brute Force Protection",
+  "description": "Test brute force protection by exceeding failed login attempts threshold",
+  "functionName": "loginBruteForce",
+  "caseFolderName": "case-025-login",
+  "precondition": "Threshold set",
+  "failedAttemptsThreshold": 10,
+  "email": "admin02@libman.com",
+  "password": "wrongpassword",
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

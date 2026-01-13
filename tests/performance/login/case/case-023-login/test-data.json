@@ -1,0 +1,17 @@
+{
+  "testCaseId": "A001-LOGIN_023",
+  "testType": "Performance",
+  "priority": "High",
+  "category": "Load",
+  "feature": "Login",
+  "scenario": "Spam Login",
+  "description": "Rapid login attempts - 20 attempts in 5 seconds",
+  "functionName": "loginSpam",
+  "caseFolderName": "case-023-login",
+  "email": "admin02@libman.com",
+  "password": "wrongpassword",
+  "attemptsCount": 20,
+  "timeWindowSeconds": 5,
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

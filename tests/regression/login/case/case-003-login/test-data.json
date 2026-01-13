@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_003",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "Empty Email",
+  "description": "Empty Email Field Validation",
+  "functionName": "loginEmptyEmail",
+  "caseFolderName": "case-003-login",
+  "email": "",
+  "password": "000000",
+  "expectedMessage": "メールアドレスを入力してください",
+  "messageCode": "message_52"
+}

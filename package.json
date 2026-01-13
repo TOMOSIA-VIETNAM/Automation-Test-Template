@@ -1,0 +1,97 @@
+{
+  "name": "automationtest",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:fix": "eslint . --ext .js,.ts --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "test": "npx playwright test",
+    "test:be": "npx playwright test --project=backend",
+    "test:fe": "npx playwright test --project=frontend-chromium",
+    "test:fe:all": "npx playwright test --project=frontend-chromium --project=frontend-firefox --project=frontend-webkit",
+    "test:api": "npx playwright test --project=backend",
+    "test:e2e": "npx playwright test --project=frontend-chromium",
+    "test:ui": "cross-env PW_UI_MODE=1 UI_MODE=1 npx playwright test --ui",
+    "test:ui:be": "cross-env PW_UI_MODE=1 UI_MODE=1 npx playwright test --project=backend --ui",
+    "test:ui:fe": "cross-env PW_UI_MODE=1 UI_MODE=1 npx playwright test --project=frontend-chromium --ui",
+    "test:headed": "cross-env PW_HEADED=1 HEADED=1 npx playwright test --headed",
+    "test:debug": "cross-env PWDEBUG=1 DEBUG=1 npx playwright test --debug",
+    "test:report": "npx playwright show-report tests/reports/playwright/playwright-report",
+    "test:report:open": "npx playwright show-report",
+    "test:report:be": "npx playwright show-report tests/reports/playwright/playwright-report --project=backend",
+    "test:report:fe": "npx playwright show-report tests/reports/playwright/playwright-report --project=frontend-chromium",
+    "codegen": "npx playwright codegen https://practice.qabrains.com",
+    "codegen:register": "npx playwright codegen https://practice.qabrains.com/registration",
+    "codegen:url": "npx playwright codegen",
+    "allure:generate": "allure generate tests/reports/allure/allure-results --clean -o tests/reports/allure/allure-report",
+    "allure:open": "allure open tests/reports/allure/allure-report",
+    "allure:serve": "allure serve tests/reports/allure/allure-results",
+    "mock:server": "node tests/mocks/start-mock-server.js",
+    "report:export": "bash scripts/export-report.sh",
+    "report:allure:export": "cd tests/reports/allure && zip -r ../../../allure-report-$(date +%Y%m%d-%H%M%S).zip allure-report/ && cd ../../..",
+    "build:html": "tsc src/typescript/excel.ts --outDir src/html --target ES2022 --module ES2022 --lib ES2022,DOM --moduleResolution node --skipLibCheck --removeComments && mv src/html/excel.js src/html/script.js",
+    "build:html:watch": "tsc src/typescript/excel.ts --outDir src/html --target ES2022 --module ES2022 --lib ES2022,DOM --moduleResolution node --skipLibCheck --removeComments --watch"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "package-lock.json": []
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TOMOSIA-VIETNAM/tmc_nocode_survey_autotest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TOMOSIA-VIETNAM/tmc_nocode_survey_autotest/issues"
+  },
+  "homepage": "https://github.com/TOMOSIA-VIETNAM/tmc_nocode_survey_autotest#readme",
+  "description": "",
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@commitlint/types": "^20.0.0",
+    "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.56.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.1",
+    "@types/xlsx": "^0.0.35",
+    "@typescript-eslint/eslint-plugin": "^8.47.0",
+    "@typescript-eslint/parser": "^8.47.0",
+    "allure-playwright": "^3.4.2",
+    "commitizen": "^4.3.1",
+    "cors": "^2.8.5",
+    "cross-env": "^10.1.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "dotenv": "^17.2.3",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "exceljs": "^4.4.0",
+    "express": "^5.1.0",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.47.0",
+    "xlsx": "^0.18.5"
+  }
+}

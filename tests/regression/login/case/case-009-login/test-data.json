@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_009",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "Email With Special Characters",
+  "description": "Email containing special characters",
+  "functionName": "loginEmailSpecialChars",
+  "caseFolderName": "case-009-login",
+  "email": "test#[user@test.com]",
+  "password": "000000",
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

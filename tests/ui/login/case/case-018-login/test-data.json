@@ -1,0 +1,25 @@
+{
+  "testCaseId": "A001-LOGIN_018",
+  "testType": "UI/Usability",
+  "priority": "Medium",
+  "category": "Usability",
+  "feature": "Login",
+  "scenario": "Responsive",
+  "description": "Responsive layout verification across viewports",
+  "functionName": "loginResponsive",
+  "caseFolderName": "case-018-login",
+  "viewports": {
+    "desktop": {
+      "width": 1920,
+      "height": 1080
+    },
+    "tablet": {
+      "width": 768,
+      "height": 1024
+    },
+    "mobile": {
+      "width": 375,
+      "height": 667
+    }
+  }
+}

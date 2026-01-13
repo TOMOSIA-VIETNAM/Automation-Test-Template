@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_004",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "Empty Password",
+  "description": "Empty Password Field Validation",
+  "functionName": "loginEmptyPassword",
+  "caseFolderName": "case-004-login",
+  "email": "admin02@libman.com",
+  "password": "",
+  "expectedMessage": "パスワードを入力してください",
+  "messageCode": "message_53"
+}

@@ -1,0 +1,257 @@
+---
+alwaysApply: true
+---
+
+---
+name: excel-integration-rule
+priority: 1
+description: >
+  Define rules for Excel integration including result writing and test tracking
+  for Playwright E2E automation tests.
+patterns:
+  - "**/*.spec.ts"
+  - "**/*.spec.js"
+  - "tests/**"
+  - "src/utils/**"
+---
+
+# RULE: EXCEL INTEGRATION FOR PLAYWRIGHT TESTS
+
+This project uses Excel templates for test case management and automatic result writing back to Excel files.
+
+---
+
+## 1. Excel Result Writer
+
+### Location & Files:
+- **Utility**: `src/utils/excel-result-writer.ts`
+- **Template**: `excel/testcase-template.xlsm`
+- **Tracker Directory**: `.playwright-test-tracker/`
+
+### Core Features:
+- Automatic test result writing to Excel template
+- Round 1 and Round 2 data support
+- Multi-project test execution tracking
+- Duplicate run prevention
+- Final status determination (F if any run failed, otherwise P)
+
+---
+
+## 2. Usage in Test Files
+
+Every test that needs Excel reporting MUST include:
+
+```ts
+import { excelResultWriter } from '@utils/excel-result-writer';
+
+test.afterEach(async ({}, testInfo) => {
+  await excelResultWriter.writeResult(testInfo);
+});
+```
+
+---
+
+## 3. TestCase ID Tag Requirement
+
+**MANDATORY**: Every test using Excel writer MUST include a TestCaseID tag.
+
+### Format:
+- `@TC_XXX` where XXX is the test case ID
+- Or `@<TestCaseID>` matching the ID in Excel template
+
+### Example:
+```ts
+test('should login successfully when using valid credentials', {
+  tag: ['@login', '@smoke', '@TC_001'],
+}, async ({ page }) => {
+  // Test steps...
+});
+```
+
+### Rules:
+- TestCaseID tag MUST be in the `tag` array
+- TestCaseID MUST NOT be in the test name
+- The Excel writer extracts TestCaseID from tags automatically
+- Without TestCaseID tag, results will NOT be written to Excel
+
+---
+
+## 4. Data Written to Excel
+
+The Excel writer automatically writes:
+
+1. **Result**: `P` (Passed) or `F` (Failed)
+2. **Date**: Test execution date (YYYY-MM-DD format)
+3. **Tester Name**: From `TESTER_NAME` environment variable or global
+4. **Report Link**: Link to Playwright report filtered by TestCaseID
+5. **Auto Method Name**: Generated from test file path
+6. **Folder Name**: Extracted from test file path
+
+### Round 1 vs Round 2:
+- Automatically detects if Round 1 data exists
+- If Round 1 is empty → writes to Round 1
+- If Round 1 has data → writes to Round 2
+- Supports re-running tests and updating results
+
+---
+
+## 5. Test Execution Tracking
+
+The `.playwright-test-tracker/` directory contains:
+
+### Tracker Files:
+- `PERFORMANCE.json` - Performance test tracking
+- `SECURITY.json` - Security test tracking
+- Individual test tracker files per TestCaseID
+
+### Tracking Features:
+- Counts test runs across multiple projects
+- Stores results for each project
+- Determines when all projects have completed
+- Writes to Excel only after the last project run
+- Prevents duplicate result writing
+
+### Tracker Data Structure:
+```json
+{
+  "count": 2,
+  "totalProjects": 3,
+  "results": {
+    "chromium": { "status": "P", "projectName": "chromium" },
+    "firefox": { "status": "F", "projectName": "firefox" }
+  }
+}
+```
+
+---
+
+## 6. Excel Template Configuration
+
+### Default Configuration:
+```ts
+{
+  excelFilePath: 'excel/testcase-template.xlsm',
+  sheetName: 'Super Admin -  List Admin',
+  headerRowIndex: 7
+}
+```
+
+### Custom Configuration:
+```ts
+import { createExcelResultWriter } from '@utils/excel-result-writer';
+
+const customWriter = createExcelResultWriter({
+  excelFilePath: 'excel/my-template.xlsm',
+  sheetName: 'My Sheet',
+  headerRowIndex: 5
+});
+
+test.afterEach(async ({}, testInfo) => {
+  await customWriter.writeResult(testInfo);
+});
+```
+
+---
+
+## 7. Environment Variables
+
+### Required:
+- `TESTER_NAME`: Name of the tester (written to Excel)
+- `PLAYWRIGHT_REPORT_URL`: Base URL for report links (default: http://localhost:9323)
+
+### Setting Environment Variables:
+```bash
+export TESTER_NAME="John Doe"
+export PLAYWRIGHT_REPORT_URL="http://localhost:9323"
+```
+
+Or in `.env` file:
+```
+TESTER_NAME=John Doe
+PLAYWRIGHT_REPORT_URL=http://localhost:9323
+```
+
+---
+
+## 8. Multi-Project Support
+
+The Excel writer supports running the same test across multiple Playwright projects:
+
+### How it works:
+1. Test runs on Project 1 (e.g., chromium) → tracked, not written to Excel yet
+2. Test runs on Project 2 (e.g., firefox) → tracked, not written to Excel yet
+3. Test runs on Project 3 (e.g., webkit) → tracked, **this is the last run**
+4. Excel writer determines final status and writes to Excel
+
+### Final Status Logic:
+- If ANY project failed → writes `F` to Excel
+- If ALL projects passed → writes `P` to Excel
+
+---
+
+## 9. Excel Column Mapping
+
+The writer automatically finds and writes to columns containing:
+
+| Excel Column Header | Data Written |
+|---------------------|--------------|
+| Result 1 / Result 2 | P or F |
+| Date / 試験日 | YYYY-MM-DD |
+| Tester / 担当者 | Tester name |
+| Report Link / レポートへのリンク | URL to filtered report |
+| Auto Method / スクリプト | test method name |
+| Folder Name / フォルダー名 | Test folder path |
+
+---
+
+## 10. Error Handling
+
+The Excel writer includes:
+
+- **File locking mechanism**: Prevents concurrent writes
+- **Retry logic**: Retries failed reads/writes up to 5 times
+- **Verification**: Re-reads Excel after writing to verify Round 1 data
+- **Logging**: Detailed console logs for debugging
+
+---
+
+## ENFORCEMENT
+
+When generating tests:
+- **Always** include TestCaseID tag if test results should be tracked in Excel
+- **Always** import and use `excelResultWriter.writeResult()` in `afterEach` hook
+- **Never** write TestCaseID in the test name
+- **Always** use the correct tag format: `@TC_XXX`
+- **Ensure** TESTER_NAME environment variable is set before running tests
+
+---
+
+## Example Complete Test with Excel Integration
+
+```ts
+import { test, expect } from '@playwright/test';
+import { excelResultWriter } from '@utils/excel-result-writer';
+
+test.describe('Login Feature', () => {
+  test.afterEach(async ({}, testInfo) => {
+    await excelResultWriter.writeResult(testInfo);
+  });
+
+  test('should login successfully when using valid credentials', {
+    tag: ['@login', '@smoke', '@TC_001'],
+  }, async ({ page }) => {
+    // Given
+    await page.goto('/login');
+    
+    // When
+    await page.fill('#username', 'admin');
+    await page.fill('#password', 'password123');
+    await page.click('button[type="submit"]');
+    
+    // Then
+    await expect(page).toHaveURL('/dashboard');
+  });
+});
+```
+
+---

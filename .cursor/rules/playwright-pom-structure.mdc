@@ -1,0 +1,54 @@
+---
+alwaysApply: true
+---
+
+---
+name: playwright-pom-structure
+priority: 1
+description: >
+  Enforce a clean, consistent, and scalable Page Object Model (POM) structure for Playwright automation tests.
+patterns:
+  - "pages/*.ts"
+  - "pages/**/*.ts"
+---
+
+# RULE: PLAYWRIGHT PAGE OBJECT MODEL (POM) STRUCTURE
+
+Cursor must always generate POM files using a clean, maintainable, and professional structure as defined below.
+
+---
+
+## Required POM Class Structure
+
+Each Page Object file must contain:
+
+1. **A single class per page**
+2. **A constructor that receives `page`**
+3. **Locators defined as getters (never inline within methods)**
+4. **Methods representing user actions only**
+5. **NO assertions inside POM**
+
+---
+
+### Example Template (Cursor MUST follow this structure)
+
+```ts
+import { Page, Locator } from '@playwright/test';
+
+export class <PageName> {
+  readonly page: Page;
+
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  // Locators
+  get <elementName>(): Locator {
+    return this.page.locator('<selector>');
+  }
+
+  // Actions
+  async <actionName>(<optionalParams>) {
+    await this.<elementName>.click();
+  }
+}

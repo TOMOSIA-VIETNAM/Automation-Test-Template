@@ -1,0 +1,358 @@
+---
+alwaysApply: true
+---
+---
+
+# MDC Rule — Folder Structure for Automation Test Project
+
+```mdc
+---
+name: folder-structure-rule
+priority: 1
+description: >
+  Enforce a clean, scalable, and standardized folder structure when generating
+  automation test files for a Playwright E2E automation framework.
+patterns:
+  - "**/*.js"
+  - "**/*.ts"
+  - "**/*.json"
+  - "**/*.md"
+---
+
+# RULE: FOLDER STRUCTURE FOR PLAYWRIGHT AUTOMATION TESTS
+
+All generated code, tests, pages, utilities, fixtures, and configurations **must follow this folder structure** exactly unless the user explicitly requests otherwise.
+
+Cursor must always generate paths that match this hierarchy.
+
+## ROOT STRUCTURE
+
+AutomationTest/
+├── .cursor/                    # Cursor AI configuration
+│   └── rules/                  # Cursor AI rules
+│       ├── code-style.mdc
+│       ├── commit-rule.mdc
+│       ├── excel-integration-rule.mdc
+│       ├── folder-structure.mdc
+│       ├── playwright-assertion-rule.mdc
+│       ├── playwright-fixtures-and-hooks-rule.mdc
+│       ├── playwright-naming-convention.mdc
+│       ├── playwright-pom-structure.mdc
+│       ├── playwright-test-structure.mdc
+│       ├── read-excel.mdc
+│       ├── reporting-rule.mdc
+│       └── scenario-template.mdc
+├── .github/
+│   ├── instructions/           # GitHub Copilot instructions
+│   │   ├── 01-project-structure.md
+│   │   ├── 02-test-structure.md
+│   │   ├── 03-page-object-model.md
+│   │   ├── 04-excel-integration.md
+│   │   ├── 05-reporting.md
+│   │   ├── 06-code-style.md
+│   │   ├── 07-assertions.md
+│   │   ├── 08-commit-standards.md
+│   │   └── 09-naming-conventions.md
+│   └── workflows/              # GitHub Actions CI/CD
+│       └── playwright.yml
+├── .husky/                     # Git hooks (commit-msg, pre-commit)
+├── .playwright-test-tracker/   # Test execution tracking (JSON files)
+├── allure-results/             # Allure test results (auto-generated)
+├── docs/                       # Documentation
+├── excel/                      # Excel templates & test data
+│   └── testcase-template.xlsm
+├── reports/                    # Generated test reports
+│   └── allure/                 # Allure reports
+├── src/
+│   ├── api/                    # API client classes
+│   ├── constants/              # Environment, selectors, test data
+│   ├── css/                    # CSS files for reports
+│   ├── fixtures/               # Playwright fixtures
+│   ├── html/                   # HTML templates
+│   ├── mocks/                  # Mock server & stub responses
+│   ├── pages/                  # Page Object Model classes
+│   ├── types/                  # TypeScript type definitions
+│   ├── utils/                  # Helper utilities
+│   │   └── excel-result-writer.ts
+│   └── TestAutomationScenarioDesignDocumentV2.2.xlsm
+├── tests/
+│   ├── api/                    # API tests
+│   │   └── <feature-name>/
+│   │           ├── cases/
+│   │           │   └── <case-folder-name>/
+│   │           │       ├── test.spec.ts
+│   │           │       ├── test-data.json
+│   │           │       ├── scenario.md
+│   │           │       └── results/
+│   │           └── shared-data.json
+│   ├── e2e/
+│   │   └── <feature-name>/           # Feature-based organization
+│   │           ├── cases/
+│   │           │   └──<case-folder-name>/
+│   │           │       ├── test.spec.ts
+│   │           │       ├── test-data.json
+│   │           │       ├── scenario.md
+│   │           │       └── results/
+│   │           └── shared-data.json
+│   ├── performance/            # Performance tests
+│   │   └── <feature-name>/
+│   │           ├── cases/
+│   │           │   └── <case-folder-name>/
+│   │           │       ├── test.spec.ts
+│   │           │       ├── test-data.json
+│   │           │       ├── scenario.md
+│   │           │       └── results/
+│   │           └── shared-data.json
+│   ├── regression/             # Regression tests
+│   │   └──<feature-name>/
+│   │           ├── cases/
+│   │           │   └── <case-folder-name>/
+│   │           │       ├── test.spec.ts
+│   │           │       ├── test-data.json
+│   │           │       ├── scenario.md
+│   │           │       └── results/
+│   │           └── shared-data.json
+│   ├── security/               # Security tests
+│   │   └── <feature-name>/
+│   │           ├── cases/
+│   │           │   └── <case-folder-name>/
+│   │           │       ├── test.spec.ts
+│   │           │       ├── test-data.json
+│   │           │       ├── scenario.md
+│   │           │       └── results/
+│   │           └── shared-data.json
+│   ├── ui/                     # UI tests (visual regression)
+│   │   └── <feature-name>/
+│   │           ├── cases/
+│   │           │   └── <case-folder-name>/
+│   │           │       ├── test.spec.ts
+│   │           │       ├── test-data.json
+│   │           │       ├── scenario.md
+│   │           │       └── results/
+│   │           └── shared-data.json
+│   ├── global-setup.ts
+│   └── global-teardown.ts
+├── types/                      # Global TypeScript types
+├── .env                        # Environment variables (not committed)
+├── .gitignore
+├── .prettierrc                 # Prettier configuration
+├── commitlint.config.ts        # Commitlint configuration
+├── eslint.config.mjs           # ESLint configuration
+├── Jenkinsfile                 # Jenkins CI/CD configuration
+├── package.json                # NPM dependencies
+├── playwright.config.ts        # Playwright configuration
+├── README.md                   # Project documentation
+└── tsconfig.json               # TypeScript configuration
+
+## FOLDER STRUCTURE RULES
+
+### 1. Feature-based organization  
+- Every feature must have its own folder under `tests/e2e/` or `tests/api/` or other test type folders.
+- A feature must always include the following:
+  - `cases/` folder containing test cases
+  - `shared-data.json` file for feature-level shared data
+- Each case folder contains its own `results/` folder for test execution results
+
+### 2. Test Case Organization  
+- Each test case must be organized in its own folder under `cases/`.
+- Test case folder naming: `<descriptive-case-name>/` (e.g., `login-successful/`, `add-product-to-cart/`)
+- Each case folder must contain:
+  - `test.spec.ts` - Main test script (required)
+  - `test-data.json` - Test data specific to this case (required)
+  - `scenario.md` - Scenario documentation with test steps and expected results (required)
+  - `results/` - Test execution results folder (auto-created when tests run)
+  - Optional files:
+    - `assertions.ts` - Assertion functions (if assertions are complex)
+    - `constants.ts` - Case-specific constants (if needed)
+
+### 3. Test Script Files  
+- All test scripts must be named `test.spec.ts` and placed in:
+```
+tests/e2e/<feature-name>/cases/<case-folder-name>/test.spec.ts
+tests/api/<feature-name>/cases/<case-folder-name>/test.spec.ts
+tests/performance/<feature-name>/cases/<case-folder-name>/test.spec.ts
+tests/regression/<feature-name>/cases/<case-folder-name>/test.spec.ts
+tests/security/<feature-name>/cases/<case-folder-name>/test.spec.ts
+tests/ui/<feature-name>/cases/<case-folder-name>/test.spec.ts
+```
+
+### 4. Scenario Documentation  
+- Scenario documentation is required and must be stored as:
+```
+tests/e2e/<feature-name>/cases/<case-folder-name>/scenario.md
+```
+- Must include:
+  - Test Case ID and metadata
+  - Test scenario description
+  - Detailed test steps
+  - Expected results
+  - Test data reference
+- Same pattern applies to all test types (api, performance, regression, security, ui)
+
+### 5. Test Data Files  
+- Test data must be stored in:
+```
+tests/e2e/<feature-name>/cases/<case-folder-name>/test-data.json
+```
+- Feature-level shared data must be stored in:
+```
+tests/e2e/<feature-name>/shared-data.json
+```
+- Same pattern applies to all test types (api, performance, regression, security, ui)
+
+### 6. Page Object Model  
+- All POM classes must be placed in:
+```
+src/pages/<page-name>-page.ts
+```
+- Example: `src/pages/login-page.ts`, `src/pages/dashboard-page.ts`
+
+### 7. Utilities & Helpers  
+- All reusable utilities belong under:
+```
+src/utils/<utility-name>.ts
+```
+- Example: `src/utils/file-utils.ts`, `src/utils/test-output-helper.ts`
+
+### 8. Fixtures  
+- All Playwright fixtures must be placed here:
+```
+src/fixtures/<fixture-name>.fixture.ts
+```
+- Example: `src/fixtures/auth.fixture.ts`, `src/fixtures/data.fixture.ts`
+
+### 9. Constants & Configuration  
+- Environment constants: `src/constants/env.ts`
+- Selectors: `src/constants/selectors.ts`
+- Test data constants: `src/constants/test-data.ts`
+
+### 10. API Clients  
+- All API client classes must be placed in:
+```
+src/api/<api-client-name>.ts
+```
+- Example: `src/api/user-api.ts`, `src/api/product-api.ts`
+
+### 11. Mocks  
+- All mock data and mock servers must be placed in:
+```
+src/mocks/<mock-name>.ts
+```
+- Example: `src/mocks/user-mock.ts`, `src/mocks/api-responses.json`
+
+### 12. Test Reports  
+- Must be output to:
+```
+reports/
+```
+- Allure reports: `reports/allure/`
+- Should not be committed to git.
+
+### 13. Test Results (Screenshots, Videos, Logs)  
+- Test execution results are stored in:
+```
+tests/e2e/<feature-name>/cases/<case-folder-name>/results/
+tests/api/<feature-name>/cases/<case-folder-name>/results/
+tests/performance/<feature-name>/cases/<case-folder-name>/results/
+tests/regression/<feature-name>/cases/<case-folder-name>/results/
+tests/security/<feature-name>/cases/<case-folder-name>/results/
+tests/ui/<feature-name>/cases/<case-folder-name>/results/
+```
+- Each test execution creates files and folders inside the case's `results/` folder containing:
+  - `screenshots/` - Screenshot files
+  - `logs/` - Page source, test result JSON files
+  - `videos/` - Video recordings (if enabled)
+  - `traces/` - Trace files (if enabled)
+- Results are organized per case, making it easier to find test artifacts for specific test cases
+- Global test results may also be stored in `allure-results/` folder at root level
+
+### 14. Global Setup / Teardown  
+- Must be placed at the root of the tests folder:
+- `tests/global-setup.ts`
+- `tests/global-teardown.ts`
+
+---
+
+## ENFORCEMENT RULE  
+If the user asks Cursor to generate any file, Cursor must **place it in the correct folder path automatically** and must not place files outside the structure above.
+
+If the user provides a file name only, Cursor must infer the path based on this rule.
+
+### Examples:
+
+**Generate login test case:**
+```
+tests/e2e/login/
+  ├── cases/
+  │   └── login-successful/
+  │       ├── test.spec.ts
+  │       ├── test-data.json
+  │       └── scenario.md
+  └── shared-data.json
+```
+
+**Generate API test case:**
+```
+tests/api/user-management/
+  ├── cases/
+  │   └── create-user/
+  │       ├── test.spec.ts
+  │       ├── test-data.json
+  │       └── scenario.md
+  └── shared-data.json
+```
+
+**Generate login page object:**
+```
+src/pages/login-page.ts
+```
+
+**Generate login fixture:**
+```
+src/fixtures/login.fixture.ts
+```
+
+**Generate Excel result writer utility:**
+```
+src/utils/excel-result-writer.ts
+```
+
+**Generate API client:**
+```
+src/api/user-api.ts
+```
+
+---
+
+## ADDITIONAL PROJECT FILES
+
+### Excel Integration
+- Excel templates are stored in `excel/` folder
+- Excel writing utilities are in `src/utils/excel-result-writer.ts`
+- Test case templates: `excel/testcase-template.xlsm`
+
+### Test Tracking
+- Playwright test tracker data: `.playwright-test-tracker/`
+- Contains tracking files for test execution history and results
+
+### CI/CD
+- Jenkins pipeline: `Jenkinsfile` (root level)
+- GitHub Actions workflows: `.github/workflows/`
+
+### Code Quality
+- Husky git hooks: `.husky/`
+- Commit message validation: `commitlint.config.ts`
+- ESLint configuration: `eslint.config.mjs`
+- Prettier configuration: `.prettierrc`
+
+---
+
+If you'd like, I can also generate:
+
+- `cursor.json` preconfigured  
+- project bootstrap script  
+- POM rule + example  
+- full automation scaffolding generator  
+
+Just tell me!
+```

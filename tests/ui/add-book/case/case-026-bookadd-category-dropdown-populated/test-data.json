@@ -1,0 +1,13 @@
+{
+  "testCaseId": "A014-BOOKADD_026",
+  "testType": "UI",
+  "priority": "Medium",
+  "category": "Positive",
+  "feature": "Book",
+  "scenario": "Category Dropdown",
+  "description": "N/A",
+  "functionName": "verifyCategoryDropdown",
+  "caseFolderName": "case-026-bookadd-category-dropdown-populated",
+  "precondition": "Admin logged in",
+  "expectedResult": "Category dropdown is populated correctly"
+}

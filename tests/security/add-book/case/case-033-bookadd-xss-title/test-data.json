@@ -1,0 +1,14 @@
+{
+  "testCaseId": "A014-BOOKADD_033",
+  "testType": "Security",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Book",
+  "scenario": "XSS Title",
+  "description": "XSS payload",
+  "functionName": "addBookXSS",
+  "caseFolderName": "case-033-bookadd-xss-title",
+  "precondition": "Admin logged in",
+  "xssPayload": "<script>alert('XSS')</script>",
+  "expectedResult": "No script executed, input is safely handled"
+}

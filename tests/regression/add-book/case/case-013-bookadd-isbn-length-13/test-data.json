@@ -1,0 +1,14 @@
+{
+  "testCaseId": "A014-BOOKADD_013",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Positive",
+  "feature": "Book",
+  "scenario": "ISBN Length 13",
+  "description": "ISBN 13 digits",
+  "functionName": "addBookISBN13",
+  "caseFolderName": "case-013-bookadd-isbn-length-13",
+  "precondition": "Admin logged in",
+  "isbn": "9784567890123",
+  "expectedMessage": "送信されました"
+}

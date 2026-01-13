@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_006",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Login",
+  "scenario": "Invalid Email Format",
+  "description": "Email without @ symbol",
+  "functionName": "loginInvalidEmailFormat",
+  "caseFolderName": "case-006-login",
+  "email": "abcgmail.com",
+  "password": "000000",
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

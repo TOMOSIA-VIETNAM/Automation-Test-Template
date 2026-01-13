@@ -1,0 +1,23 @@
+{
+  "feature": "Login",
+  "featureCode": "A001-LOGIN",
+  "description": "Login UI/Usability test cases",
+  "baseUrl": "/login",
+  "viewports": {
+    "desktop": {
+      "width": 1920,
+      "height": 1080
+    },
+    "tablet": {
+      "width": 768,
+      "height": 1024
+    },
+    "mobile": {
+      "width": 375,
+      "height": 667
+    }
+  },
+  "commonMessages": {
+    "authError": "メールアドレスまたはパスワードが間違っています"
+  }
+}

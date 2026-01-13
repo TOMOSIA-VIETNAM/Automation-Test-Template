@@ -1,0 +1,39 @@
+---
+alwaysApply: true
+---
+
+---
+name: playwright-assertion-standard
+priority: 1
+description: >
+  Enforce clear, explicit, and reliable assertion standards for all Playwright automation tests.
+patterns:
+  - "*.spec.ts"
+  - "*.spec.js"
+  - "*.test.ts"
+  - "*.test.js"
+---
+
+# RULE: ASSERTION STANDARD FOR PLAYWRIGHT
+
+Cursor must always generate assertions using Playwright’s built-in `expect` API. All assertions must be explicit, measurable, and tied to a meaningful user outcome.
+
+---
+
+## General Assertion Rules
+
+Cursor must:
+
+- Use **expect()** from Playwright for every validation.
+- Assert meaningful behaviors, not UI implementation details.
+- Ensure each test contains **at least one** assertion.
+- Prefer **behavior-driven assertions**, not structural ones.
+- Keep assertions inside **test files only** (never inside POM).
+
+---
+
+## Required Assertion Patterns
+
+### Visibility
+```ts
+await expect(locator).toBeVisible();

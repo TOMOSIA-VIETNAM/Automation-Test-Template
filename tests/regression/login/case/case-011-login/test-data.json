@@ -1,0 +1,15 @@
+{
+  "testCaseId": "A001-LOGIN_011",
+  "testType": "Regression",
+  "priority": "Medium",
+  "category": "Boundary Negative",
+  "feature": "Login",
+  "scenario": "Email Too Long",
+  "description": "Email exceeding maximum allowed length (254+ chars)",
+  "functionName": "loginEmailTooLong",
+  "caseFolderName": "case-011-login",
+  "email": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@libman.com",
+  "password": "000000",
+  "expectedMessage": "メールアドレスまたはパスワードが間違っています",
+  "messageCode": "message_28"
+}

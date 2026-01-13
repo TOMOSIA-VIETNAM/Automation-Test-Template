@@ -1,0 +1,117 @@
+---
+alwaysApply: true
+---
+
+---
+name: playwright-naming-convention
+priority: 1
+description: >
+  Enforce consistent, readable, and professional naming conventions for Playwright E2E automation tests, including tests, POMs, locators, methods, variables, and files.
+patterns:
+  - "*.ts"
+  - "*.js"
+  - "tests/**/*.ts"
+  - "pages/**/*.ts"
+---
+
+# RULE: NAMING CONVENTIONS FOR PLAYWRIGHT AUTOMATION
+
+Cursor must follow all naming standards below when generating or modifying Playwright test automation code.
+
+---
+
+## Test File Naming Convention
+
+Test files must follow:
+
+- `<feature>.spec.ts`  
+- `<feature>.test.ts`
+
+Examples:
+- `login.spec.ts`
+- `checkout-flow.spec.ts`
+- `user-management.test.ts`
+
+Forbidden:
+- `test1.ts`
+- `playwrightTest.ts`
+- `random.ts`
+
+---
+
+## Test Name Convention (Inside test blocks)
+
+Test names MUST follow the format:
+
+**"should <expected behavior> when <condition>"**
+
+Examples:
+- `should login successfully when using valid credentials`
+- `should show error message when password is invalid`
+- `should display cart items when user has added products`
+
+Forbidden:
+- `valid login`
+- `test login`
+- `login working`
+- `check login`
+
+---
+
+## POM Class Naming Convention
+
+- Use **PascalCase**
+- Use meaningful page name
+- Class name MUST match filename
+
+Examples:
+- `LoginPage` → `pages/LoginPage.ts`
+- `DashboardPage` → `pages/DashboardPage.ts`
+
+Forbidden:
+- `loginpage.ts`
+- `pageLogin.ts`
+- `Login.ts`
+- `mainpage.ts`
+
+---
+
+## POM Method Naming Convention
+
+Method names must:
+
+- Start with a **verb**
+- Describe an **action**, not UI elements
+- Be written in **camelCase**
+
+Examples:
+- `async login(username, password)`
+- `async fillSearchInput(text)`
+- `async submitForm()`
+- `async addProductToCart(productName)`
+
+Forbidden:
+- `doLogin`
+- `login_action`
+- `Login`
+- `enter_username`
+
+---
+
+## Locator Naming Convention
+
+Locators must:
+
+- Use **getter functions**
+- Use purposeful names: `elementType + Meaning`
+- Use camelCase
+- Avoid UI-specific names (btn1, div2, etc.)
+
+Examples:
+
+```ts
+get usernameInput()
+get passwordInput()
+get loginButton()
+get errorMessage()
+get searchField()

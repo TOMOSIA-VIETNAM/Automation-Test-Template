@@ -1,0 +1,106 @@
+---
+alwaysApply: true
+---
+
+---
+name: read-excel-cursor-display
+priority: 1
+description: >
+  Rule guiding AI Cursor to automatically read Excel files, parse the content
+  of sheets/testcases/messages, and directly display parsed content without
+  using a script to display it.
+patterns:
+  - "**/*.xlsx"
+  - "**/*.xls"
+  - "tests/**"
+---
+
+# RULE: READ EXCEL AND DISPLAY FOR CURSOR AI
+
+Cursor must follow the steps below to read Excel files consistently, similar to the manual workflow.
+
+---
+
+## 1. Create Temporary Script
+- **Action**: CreateTempScript  
+- **Description**: Create a temporary script in the project to read Excel files.  
+- **Details**:
+  - **Language**: Node.js (JS/TS) or Python
+  - **Dependencies**:
+    - Node.js: `xlsx`
+    - Python: `openpyxl`
+  - **Script name**: `temp_read_excel.js` or `temp_read_excel.py`
+  - **Purpose**: Only used to **load and parse Excel file**, not for displaying content
+
+---
+
+## 2. Load Excel File
+- **Action**: LoadExcelFile  
+- **Description**: Read the Excel file to be analyzed.  
+- **Details**:
+  - **File type**: `.xlsx` or `.xls`
+  - **Method**:
+    - Node.js: `xlsx.readFile(filePath)`
+    - Python: `openpyxl.load_workbook(filePath)`
+  - **Goal**: Retrieve all sheets, rows, and columns
+
+---
+
+## 3. Parse Content
+- **Action**: ParseContent  
+- **Description**: Analyze and extract key content from the Excel file.  
+- **Details**:
+  - **Output format**: JSON or summary table
+  - **Tasks**:
+    - List all sheets
+    - List number of rows and columns
+    - **Sheet Selection Priority**:
+      - If user specifies sheet name in prompt (e.g., "read sheet 'Login Tests'")
+      - If user specifies feature (e.g., "read login feature tests")
+      - Default to first sheet or "Test Cases" if exists
+    - Summarize test case content:
+      - `TestCaseID`
+      - `Title`
+      - `Type`
+      - `TestData`
+      - `Steps`
+      - `ExpectedResult`
+    - Link message codes if the sheet "Common - Message" exists
+
+---
+
+## 4. Display Content Directly
+- **Action**: DisplayContent  
+- **Description**: Cursor directly displays the parsed content to the user.  
+- **Details**:
+  - No script should print content to console
+  - Output must be **well-structured**, e.g., table, JSON, or summary per sheet/testcase
+  - Purpose: Cursor works **directly with the data**, ready for automation use
+
+---
+
+## 5. Delete Temporary Script
+- **Action**: DeleteTempScript  
+- **Description**: Remove the temporary script after parsing to keep the project clean.  
+- **Details**:
+  - Node.js: `fs.unlinkSync("temp_read_excel.js")`
+  - Python: `os.remove("temp_read_excel.py")`
+
+---
+
+## 6. Optional: Cache Parsed Data
+- **Action**: CacheParsedData  
+- **Description**: Save temporary parsed content if needed for next automation steps.  
+- **Details**:
+  - JSON file or internal variable for Cursor to process further
+
+---
+
+## ENFORCEMENT
+
+- Cursor **must follow all steps above** when reading Excel test case files.
+- Cursor **must directly display parsed content**, without using a script to show it.
+- Output **must be clear, structured, and ready for automation testing**.
+- **Sheet Selection**: Cursor **must intelligently select appropriate sheet** based on user context or explicit specification.
+- **Multiple Sheets**: When Excel has multiple relevant sheets, Cursor **should ask user** which sheet(s) to process unless context is clear.
+

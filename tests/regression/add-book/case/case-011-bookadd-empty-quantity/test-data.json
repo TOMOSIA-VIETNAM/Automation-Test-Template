@@ -1,0 +1,13 @@
+{
+  "testCaseId": "A014-BOOKADD_011",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Book",
+  "scenario": "Empty Quantity",
+  "description": "Quantity empty",
+  "functionName": "addBookEmptyQty",
+  "caseFolderName": "case-011-bookadd-empty-quantity",
+  "precondition": "Admin logged in",
+  "expectedMessage": "この欄は空にできません"
+}

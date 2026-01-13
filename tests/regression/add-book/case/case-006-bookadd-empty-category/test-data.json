@@ -1,0 +1,13 @@
+{
+  "testCaseId": "A014-BOOKADD_006",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Book",
+  "scenario": "Empty Category",
+  "description": "Category not selected",
+  "functionName": "addBookEmptyCategory",
+  "caseFolderName": "case-006-bookadd-empty-category",
+  "precondition": "Admin logged in",
+  "expectedMessage": "カテゴリーを選択してください"
+}

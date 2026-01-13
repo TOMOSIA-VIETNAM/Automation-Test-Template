@@ -1,0 +1,14 @@
+{
+  "testCaseId": "A014-BOOKADD_012",
+  "testType": "Regression",
+  "priority": "High",
+  "category": "Negative",
+  "feature": "Book",
+  "scenario": "Invalid ISBN Format",
+  "description": "ISBN: ABC123",
+  "functionName": "addBookInvalidISBN",
+  "caseFolderName": "case-012-bookadd-invalid-isbn-format",
+  "precondition": "Admin logged in",
+  "isbn": "ABC123",
+  "expectedMessage": "不正なISBN"
+}

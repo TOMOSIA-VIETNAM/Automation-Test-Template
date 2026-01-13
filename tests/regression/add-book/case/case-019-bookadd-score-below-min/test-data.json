@@ -1,0 +1,14 @@
+{
+  "testCaseId": "A014-BOOKADD_019",
+  "testType": "Regression",
+  "priority": "Medium",
+  "category": "Negative",
+  "feature": "Book",
+  "scenario": "Score Below Min",
+  "description": "Score = -1",
+  "functionName": "addBookScoreBelow",
+  "caseFolderName": "case-019-bookadd-score-below-min",
+  "precondition": "Admin logged in",
+  "score": "-1",
+  "expectedMessage": "0より大きい数値を入力してください"
+}

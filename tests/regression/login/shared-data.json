@@ -1,0 +1,31 @@
+{
+  "feature": "Login",
+  "featureCode": "A001-LOGIN",
+  "description": "Login functionality regression test cases",
+  "baseUrl": "/login",
+  "commonMessages": {
+    "loginSuccess": "ログインに成功しました",
+    "loginFailed": "ログインに失敗しました",
+    "emailRequired": "メールアドレスを入力してください",
+    "passwordRequired": "パスワードを入力してください",
+    "authError": "メールアドレスまたはパスワードが間違っています"
+  },
+  "messagesCodes": {
+    "message_28": "メールアドレスまたはパスワードが間違っています",
+    "message_52": "メールアドレスを入力してください",
+    "message_53": "パスワードを入力してください",
+    "message_54": "ログインに成功しました"
+  },
+  "testAccounts": {
+    "admin": {
+      "email": "admin@libman.com",
+      "password": "000000",
+      "role": "Administrator"
+    },
+    "admin02": {
+      "email": "admin02@libman.com",
+      "password": "000000",
+      "role": "Administrator"
+    }
+  }
+}
